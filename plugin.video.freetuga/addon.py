@@ -48,9 +48,6 @@ def CATEGORIES():
 	addDir('xxx','https://dl.dropboxusercontent.com/s/fk700x5nlwc855u/xxx.txt?dl=0',2,artfolder + '6.png')
 	addDir('Eventos','https://dl.dropboxusercontent.com/s/w7ga6shmocr23x4/Eventos.txt?dl=0',2,artfolder + '8.png')
 	xbmcplugin.setContent(int(sys.argv[1]), 'movies')
-	xbmcplugin.setContent(int(sys.argv[1]), 'movies')
-	xbmcplugin.setContent(int(sys.argv[1]), 'movies')
-	xbmcplugin.setContent(int(sys.argv[1]), 'movies')
 	xbmc.executebuiltin('Container.SetViewMode(500)')
 
 ###################################################################################
@@ -61,21 +58,15 @@ def listar_videos(url):
 	items = soup.findAll("item")	
 	a = []
 	for item in items:
-		try:
-			nomeprog = '  [B][COLOR red]%s[/COLOR][/B]' % canais[item.sigla.string]['nomeprog'].decode("utf-8","ignore")
-		except:
-			nomeprog = ''
-		try:
-			descprog = canais[item.sigla.string]['descprog']
-		except:
-			descprog = ''
+		try: nomeprog = '  [B][COLOR red]%s[/COLOR][/B]' % canais[item.sigla.string]['nomeprog'].decode("utf-8","ignore")
+		except: nomeprog = ''
+		try: descprog = canais[item.sigla.string]['descprog']
+		except: descprog = ''
 		temp = [item.link.string,"[COLOR grey]%s[/COLOR]" % item.title.text.upper() + nomeprog,item.thumbnail.string,descprog]
-		if temp not in a:
-			a.append(temp)
+		if temp not in a: a.append(temp)
 	
 	total = len(a)
-	for url2, titulo, img, plot in a:
-		addLink(titulo,url2,img,plot)
+	for url2, titulo, img, plot in a: addLink(titulo,url2,img,plot)
 
 	xbmcplugin.setContent(int(sys.argv[1]), 'movies')
 	xbmc.executebuiltin('Container.SetViewMode(500)')
@@ -108,9 +99,6 @@ def play_veetle(url):
 #        xbmcPlayer.play('plugin://plugin.video.veetle/?channel=' + id_)
 	xbmcPlayer = xbmc.Player()
         xbmcPlayer.play(url)
-		
-		
-
 
 ################################################
 #    Funções relacionadas a media.             #
@@ -119,8 +107,7 @@ def play_veetle(url):
 
 def makeRequest(url, headers=None):
         try:
-            if headers is None:
-                headers = {'User-agent' : 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:19.0) Gecko/20100101 Firefox/19.0'}
+            if headers is None: headers = {'User-agent' : 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:19.0) Gecko/20100101 Firefox/19.0'}
             req = urllib2.Request(url,None,headers)
             response = urllib2.urlopen(req)
             data = response.read()
@@ -135,8 +122,6 @@ def makeRequest(url, headers=None):
                 addon_log('We failed to reach a server.')
                 addon_log('Reason: %s' %e.reason)
                 xbmc.executebuiltin("XBMC.Notification(BrasilOnline,We failed to reach a server. - "+str(e.reason)+",10000,"+icon+")")
-
-
 
 def getSoup(url):
         data = makeRequest(url)
@@ -160,10 +145,8 @@ def getepg(url):
         url.close()
 	soup_programa = BeautifulSoup(source)
 	plot = soup_programa.find("div", { "id" : "sinopse" }).prettify()
-	try:
-		plot = re.findall(r'str="(.*?)"', plot)[0]
-	except:
-		plot = ''
+	try: plot = re.findall(r'str="(.*?)"', plot)[0]
+	except: plot = ''
 	print "Plot: " + plot
         return (' (%s - "%s" / %s - "%s")' % (horario1,programa1,horario2,programa2), plot)
 
@@ -202,73 +185,40 @@ def get_params():
         if len(paramstring)>=2:
                 params=sys.argv[2]
                 cleanedparams=params.replace('?','')
-                if (params[len(params)-1]=='/'):
-                        params=params[0:len(params)-2]
+                if (params[len(params)-1]=='/'): params=params[0:len(params)-2]
                 pairsofparams=cleanedparams.split('&')
                 param={}
                 for i in range(len(pairsofparams)):
                         splitparams={}
                         splitparams=pairsofparams[i].split('=')
-                        if (len(splitparams))==2:
-                                param[splitparams[0]]=splitparams[1]
-                                
+                        if (len(splitparams))==2: param[splitparams[0]]=splitparams[1]
         return param
 
-      
 params=get_params()
 url=None
 name=None
 mode=None
 iconimage=None
 
-
-try:
-        url=urllib.unquote_plus(params["url"])
-except:
-        pass
-try:
-        name=urllib.unquote_plus(params["name"])
-except:
-        pass
-try:
-        mode=int(params["mode"])
-except:
-        pass
-
-try:        
-        iconimage=urllib.unquote_plus(params["iconimage"])
-except:
-        pass
-
+try: url=urllib.unquote_plus(params["url"])
+except: pass
+try: name=urllib.unquote_plus(params["name"])
+except: pass
+try: mode=int(params["mode"])
+except: pass
+try: iconimage=urllib.unquote_plus(params["iconimage"])
+except: pass
 
 print "Mode: "+str(mode)
 print "URL: "+str(url)
 print "Name: "+str(name)
 print "Iconimage: "+str(iconimage)
 
-
 ###############################################################################################################
 #                                                   MODOS                                                     #
 ###############################################################################################################
-
-
-if mode==None or url==None or len(url)<1:
-        print ""
-        CATEGORIES()
-
-elif mode==1:
-	print ""
-	
-elif mode==2:
-	print ""
-	listar_videos(url)
-
-elif mode==3:
-	print ""
-	encontrar_fontes(url)
-	
-elif mode==4:
-	print ""
-	play(url)
-
+if mode==None or url==None or len(url)<1: CATEGORIES()
+elif mode==2: listar_videos(url)
+elif mode==3: encontrar_fontes(url)
+elif mode==4: play(url)
 xbmcplugin.endOfDirectory(int(sys.argv[1]))
