@@ -18,21 +18,14 @@
 
 ##############BIBLIOTECAS A IMPORTAR E DEFINICOES####################
 
-import urllib,urllib2,re,xbmcplugin,xbmcgui,xbmc,xbmcaddon,HTMLParser
-import xbmcvfs
-from BeautifulSoup import BeautifulSoup
+import urllib,urllib2,re,xbmcplugin,xbmcgui,xbmc,xbmcaddon
 from BeautifulSoup import BeautifulStoneSoup, BeautifulSoup, BeautifulSOAP
-from tools import *
-h = HTMLParser.HTMLParser()
-
 
 addon_id = 'plugin.video.freetuga'
 selfAddon = xbmcaddon.Addon(id=addon_id)
 addonfolder = selfAddon.getAddonInfo('path')
 artfolder = addonfolder + '/resources/img/'
 fanart = addonfolder + '/fanart.png'
-versao = '0.0.1'
-
 
 ################################################## 
 
@@ -55,7 +48,7 @@ def CATEGORIES():
 
 def listar_videos(url):
 	soup = getSoup(url)
-	items = soup.findAll("item")	
+	items = soup.findAll("item")
 	a = []
 	for item in items:
 		try: nomeprog = '  [B][COLOR red]%s[/COLOR][/B]' % canais[item.sigla.string]['nomeprog'].decode("utf-8","ignore")
@@ -64,10 +57,10 @@ def listar_videos(url):
 		except: descprog = ''
 		temp = [item.link.string,"[COLOR grey]%s[/COLOR]" % item.title.text.upper() + nomeprog,item.thumbnail.string,descprog]
 		if temp not in a: a.append(temp)
-	
 	total = len(a)
-	for url2, titulo, img, plot in a: addLink(titulo,url2,img,plot)
-
+	for url2, titulo, img, plot in a: 
+		if 'plugin' in url2: url2 = url2.replace(';=','=')
+		addLink(titulo,url2,img,plot)
 	xbmcplugin.setContent(int(sys.argv[1]), 'movies')
 	xbmc.executebuiltin('Container.SetViewMode(500)')
 
@@ -83,22 +76,6 @@ def play(url):
 		dialog = xbmcgui.Dialog()
 		dialog.ok(" Erro:", " Impossível abrir vídeo! ")
 		pass
-
-def play_veetle(url):
-#	html = urllib2.urlopen(url).read()
-#
-#	url = 'http://veetle.com/index.php/widget#%s/true/16:10' % re.findall('http://veetle.com/index.php/widget#(.*?)/true/16:10',html)[0]
-#	req = urllib2.Request(url)
-#        req.add_header('User-Agent', 'Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 6.2; WOW64; Trident/7.0; .NET4.0E; .NET4.0C; InfoPath.3; .NET CLR 3.5.30729; .NET CLR 2.0.50727; .NET CLR 3.0.30729)')
-#        html = urllib2.urlopen(req).read()
-#	ow = open('C:\\Python27\\veetle2.html','w')
-#	ow.write(html)
-#	ow.close()
-#	id_ = re.findall('id="credit" href="http://veetle.com/v/(.*?)"',html)[0]
-#	xbmcPlayer = xbmc.Player()
-#        xbmcPlayer.play('plugin://plugin.video.veetle/?channel=' + id_)
-	xbmcPlayer = xbmc.Player()
-        xbmcPlayer.play(url)
 
 ################################################
 #    Funções relacionadas a media.             #
@@ -117,11 +94,11 @@ def makeRequest(url, headers=None):
             print 'URL: '+url
             if hasattr(e, 'code'):
                 print 'We failed with error code - %s.' % e.code
-                xbmc.executebuiltin("XBMC.Notification(BrasilOnline,We failed with error code - "+str(e.code)+",10000,"+icon+")")
+                xbmc.executebuiltin("XBMC.Notification(freetuga,We failed with error code - "+str(e.code)+",10000,"+icon+")")
             elif hasattr(e, 'reason'):
                 addon_log('We failed to reach a server.')
                 addon_log('Reason: %s' %e.reason)
-                xbmc.executebuiltin("XBMC.Notification(BrasilOnline,We failed to reach a server. - "+str(e.reason)+",10000,"+icon+")")
+                xbmc.executebuiltin("XBMC.Notification(freetuga,We failed to reach a server. - "+str(e.reason)+",10000,"+icon+")")
 
 def getSoup(url):
         data = makeRequest(url)
@@ -178,7 +155,6 @@ def addDir(name,url,mode,iconimage,pasta=True,total=1,plot=''):
 ############################################################################################################
 #                                               GET PARAMS                                                 #
 ############################################################################################################
-              
 def get_params():
         param=[]
         paramstring=sys.argv[2]
