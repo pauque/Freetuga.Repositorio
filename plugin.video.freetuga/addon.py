@@ -18,30 +18,30 @@
 
 ##############BIBLIOTECAS A IMPORTAR E DEFINICOES####################
 
-import urllib,urllib2,re,xbmcplugin,xbmcgui,xbmc,xbmcaddon
+import urllib,urllib2,re,xbmcplugin,xbmcgui,xbmc,xbmcaddon,os
 from BeautifulSoup import BeautifulStoneSoup, BeautifulSoup, BeautifulSOAP
 
 addon_id = 'plugin.video.freetuga'
 selfAddon = xbmcaddon.Addon(id=addon_id)
 addonfolder = selfAddon.getAddonInfo('path')
-artfolder = addonfolder + '/resources/img/'
-fanart = addonfolder + '/fanart.png'
+artfolder = os.path.join(addonfolder,'resources','img')
+fanart = os.path.join(addonfolder,'fanart.png')
 
 ################################################## 
 
 #MENUS############################################
 
 def CATEGORIES():
-	addDir('Desporto','https://dl.dropboxusercontent.com/s/zgjwyafgnli9lxw/Desporto.txt?dl=0',2,artfolder + '1.png')
-	addDir('Generalistas','https://dl.dropboxusercontent.com/s/jsb4aj3m3vk3n52/Generalistas.txt?dl=0',2,artfolder + '2.png')
-	addDir('Notícias','https://dl.dropboxusercontent.com/s/67wkgntatx5bo46/Noticias.txt?dl=0',2,artfolder + '3.png')
-	addDir('Filmes','https://dl.dropboxusercontent.com/s/tpgw39jbyim6bk8/Filmes.txt?dl=0',2,artfolder + '4.png')
-	addDir('Musica','https://dl.dropboxusercontent.com/s/qy59cd214cti771/Musica.txt?dl=0',2,artfolder + '5.png')
-	addDir('Infantil','https://dl.dropboxusercontent.com/s/wc0b810rgxa49xk/Infantil.txt?dl=0',2,artfolder + '7.png')
-	addDir('xxx','https://dl.dropboxusercontent.com/s/fk700x5nlwc855u/xxx.txt?dl=0',2,artfolder + '6.png')
-	addDir('Eventos','https://dl.dropboxusercontent.com/s/w7ga6shmocr23x4/Eventos.txt?dl=0',2,artfolder + '8.png')
+	addDir('Desporto','https://dl.dropboxusercontent.com/s/zgjwyafgnli9lxw/Desporto.txt?dl=0',2,os.path.join(artfolder,'1.png'))
+	addDir('Generalistas','https://dl.dropboxusercontent.com/s/jsb4aj3m3vk3n52/Generalistas.txt?dl=0',2,os.path.join(artfolder,'2.png'))
+	addDir('Notícias','https://dl.dropboxusercontent.com/s/67wkgntatx5bo46/Noticias.txt?dl=0',2,os.path.join(artfolder,'3.png'))
+	addDir('Filmes','https://dl.dropboxusercontent.com/s/tpgw39jbyim6bk8/Filmes.txt?dl=0',2,os.path.join(artfolder,'4.png'))
+	addDir('Musica','https://dl.dropboxusercontent.com/s/qy59cd214cti771/Musica.txt?dl=0',2,os.path.join(artfolder,'5.png'))
+	addDir('Infantil','https://dl.dropboxusercontent.com/s/wc0b810rgxa49xk/Infantil.txt?dl=0',2,os.path.join(artfolder,'7.png'))
+	addDir('xxx','https://dl.dropboxusercontent.com/s/fk700x5nlwc855u/xxx.txt?dl=0',2,os.path.join(artfolder,'6.png'))
+	addDir('Eventos','https://dl.dropboxusercontent.com/s/w7ga6shmocr23x4/Eventos.txt?dl=0',2,os.path.join(artfolder,'8.png'))
 	xbmcplugin.setContent(int(sys.argv[1]), 'movies')
-	xbmc.executebuiltin('Container.SetViewMode(500)')
+	if "confluence" in xbmc.getSkinDir(): xbmc.executebuiltin('Container.SetViewMode(500)')
 
 ###################################################################################
 #FUNCOES
@@ -62,7 +62,7 @@ def listar_videos(url):
 		if 'plugin' in url2: url2 = url2.replace(';=','=')
 		addLink(titulo,url2,img,plot)
 	xbmcplugin.setContent(int(sys.argv[1]), 'movies')
-	xbmc.executebuiltin('Container.SetViewMode(500)')
+	if "confluence" in xbmc.getSkinDir(): xbmc.executebuiltin('Container.SetViewMode(500)')
 
 def play(url):
 	listitem = xbmcgui.ListItem()
