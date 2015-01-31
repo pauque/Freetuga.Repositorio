@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="plugin.video.freetuga" name="FreeTuga" version="0.0.6" provider-name="Korea">
+<addon id="plugin.video.freetuga" name="FreeTuga" version="0.0.7" provider-name="Korea">
 	<requires>
     <import addon="xbmc.python" version="2.1.0"/>
 	<import addon="script.module.beautifulsoup" version="3.2.1"/>
@@ -11,7 +11,7 @@
     <language>en</language>
     <platform>all</platform>
     <summary lang="en">assista tv ao vivo</summary>
-    <description lang="en">Videos que despertam a curiosidade</description>
+    <description lang="en">nao transmitimos nenhum stream,tudo o que esta aqui esta ao alcance de qualquer um na internet!</description>
     <platform>all</platform>
   </extension>
 </addon>
