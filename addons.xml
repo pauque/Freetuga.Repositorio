@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <addons>
-<addon id="Freetuga.Repositorio" name="Boxcenter repositorio" version="0.0.3" provider-name="boxcenterkodi">
+<addon id="Freetuga.Repositorio" name="Freetuga repositorio" version="0.0.4" provider-name="Freetuga">
 	<extension point="xbmc.addon.repository" name="Boxcenter Add-on Repository">
 		<info compressed="false">http://raw.github.com/boxcenterkodi/Freetuga.Repositorio/master/addons.xml</info>
 		<checksum>http://raw.github.com/boxcenterkodi/Freetuga.Repositorio/master/addons.xml.md5</checksum>
 		<datadir zip="true">http://raw.github.com/boxcenterkodi/Freetuga.Repositorio/master/repo/</datadir>
 	</extension>
 	<extension point="xbmc.addon.metadata">
-		<summary>Boxcenter Addon</summary>
+		<summary>Freetuga Addon</summary>
 		<description>Addon Description</description>
 		<disclaimer></disclaimer>
 		<platform>all</platform>
 	</extension>
 </addon>
 
-<addon id="plugin.video.freetuga" name="FreeTuga" version="0.0.7" provider-name="Korea">
+<addon id="plugin.video.freetuga" name="FreeTuga" version="0.0.8" provider-name="Korea, Vitorgalo, AndryC, Paulo Santos">
 	<requires>
     <import addon="xbmc.python" version="2.1.0"/>
 	<import addon="script.module.beautifulsoup" version="3.2.1"/>
