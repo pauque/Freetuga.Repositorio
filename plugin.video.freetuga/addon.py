@@ -40,7 +40,7 @@ def CATEGORIES():
 	addDir('Infantil','https://dl.dropboxusercontent.com/s/wc0b810rgxa49xk/Infantil.txt?dl=0',2,os.path.join(artfolder,'7.png'))
 	addDir('xxx','https://dl.dropboxusercontent.com/s/fk700x5nlwc855u/xxx.txt?dl=0',2,os.path.join(artfolder,'6.png'))
 	addDir('Eventos','https://dl.dropboxusercontent.com/s/w7ga6shmocr23x4/Eventos.txt?dl=0',2,os.path.join(artfolder,'8.png'))
-	addDir('Ace e Sop','https://dl.dropboxusercontent.com/s/apv4fz6o3ysga9t/Ace%20e%20Sop.txt?dl=0',2,os.path.join(artfolder,'9.png'))
+	addDir('Ace','https://dl.dropboxusercontent.com/s/ikf9fflaexomef8/Ace.txt?dl=0',2,os.path.join(artfolder,'9.png'))
 	xbmcplugin.setContent(int(sys.argv[1]), 'movies')
 	if "confluence" in xbmc.getSkinDir(): xbmc.executebuiltin('Container.SetViewMode(500)')
 

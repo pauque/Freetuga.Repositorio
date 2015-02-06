@@ -14,7 +14,7 @@
 	</extension>
 </addon>
 
-<addon id="plugin.video.freetuga" name="FreeTuga" version="0.0.8" provider-name="Korea, Vitorgalo, AndryC, Paulo Santos">
+<addon id="plugin.video.freetuga" name="FreeTuga" version="0.0.9" provider-name="Korea, Vitorgalo, AndryC, Paulo Santos">
 	<requires>
     <import addon="xbmc.python" version="2.1.0"/>
 	<import addon="script.module.beautifulsoup" version="3.2.1"/>
